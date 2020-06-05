@@ -6,9 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject Bumper = null;
     private BaseAI ai = null;
+    public GameObject LittleThrowCube = null;
+    public Transform CubeFrontSpawnPoint = null;
+    public Transform CubeLeftSpawnPoint = null;
+    public Transform CubeRightSpawnPoint = null;
+    public GameObject Watchout = null;
     
     private float PlayerSpeed = 50.0f;
     private float RotationSpeed = 150.0f;
+    private float FloorSize = 500.0f;
 
     public void SetAI(BaseAI _ai){
         ai = ai;
@@ -30,10 +36,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public IEnumerator __Ahead(float distance) {
-        int numFrames = (int)(distance / (BoatSpeed * Time.fixedDeltaTime));
+        int numFrames = (int)(distance / PlayerSpeed * Time.fixedDeltaTime);
         for (int f = 0; f < numFrames; f++) {
-            transform.Translate(new Vector3(0f, 0f, BoatSpeed * Time.fixedDeltaTime), Space.Self);
-            Vector3 clampedPosition = Vector3.Max(Vector3.Min(transform.position, new Vector3(SeaSize, 0, SeaSize)), new Vector3(-SeaSize, 0, -SeaSize));
+            transform.Translate(new Vector3(0f, 0f, PlayerSpeed * Time.fixedDeltaTime), Space.Self);
+            Vector3 clampedPosition = Vector3.Max(Vector3.Min(transform.position, new Vector3(FloorSize, 0, FloorSize)), new Vector3(-FloorSize, 0, -FloorSize));
             transform.position = clampedPosition;
 
             yield return new WaitForFixedUpdate();            
@@ -41,10 +47,10 @@ public class PlayerController : MonoBehaviour
     }
 
     public IEnumerator __Back(float distance) {
-        int numFrames = (int)(distance / (BoatSpeed * Time.fixedDeltaTime));
+        int numFrames = (int)(distance / PlayerSpeed * Time.fixedDeltaTime);
         for (int f = 0; f < numFrames; f++) {
-            transform.Translate(new Vector3(0f, 0f, -BoatSpeed * Time.fixedDeltaTime), Space.Self);
-            Vector3 clampedPosition = Vector3.Max(Vector3.Min(transform.position, new Vector3(SeaSize, 0, SeaSize)), new Vector3(-SeaSize, 0, -SeaSize));
+            transform.Translate(new Vector3(0f, 0f, -PlayerSpeed * Time.fixedDeltaTime), Space.Self);
+            Vector3 clampedPosition = Vector3.Max(Vector3.Min(transform.position, new Vector3(FloorSize, 0, FloorSize)), new Vector3(-FloorSize, 0, -FloorSize));
             transform.position = clampedPosition;
 
             yield return new WaitForFixedUpdate();            
@@ -74,39 +80,33 @@ public class PlayerController : MonoBehaviour
     }
 
     public IEnumerator __FireFront(float power) {
-        GameObject newInstance = Instantiate(CannonBallPrefab, CannonFrontSpawnPoint.position, CannonFrontSpawnPoint.rotation);
+        GameObject newInstance = Instantiate(LittleThrowCube, CubeFrontSpawnPoint.position, CubeFrontSpawnPoint.rotation);
         yield return new WaitForFixedUpdate();
     }
 
     public IEnumerator __FireLeft(float power) {
-        GameObject newInstance = Instantiate(CannonBallPrefab, CannonLeftSpawnPoint.position, CannonLeftSpawnPoint.rotation);
+        GameObject newInstance = Instantiate(LittleThrowCube, CubeLeftSpawnPoint.position, CubeLeftSpawnPoint.rotation);
         yield return new WaitForFixedUpdate();
     }
 
     public IEnumerator __FireRight(float power) {
-        GameObject newInstance = Instantiate(CannonBallPrefab, CannonRightSpawnPoint.position, CannonRightSpawnPoint.rotation);
+        GameObject newInstance = Instantiate(LittleThrowCube, CubeRightSpawnPoint.position, CubeRightSpawnPoint.rotation);
         yield return new WaitForFixedUpdate();
     }
 
-    public void __SetColor(Color color) {
-        foreach (GameObject sail in sails) {
-            sail.GetComponent<MeshRenderer>().material.color = color;
-        }
-    }
-
-    public IEnumerator __TurnLookoutLeft(float angle) {
+    public IEnumerator __TurnWatchoutLeft(float angle) {
         int numFrames = (int)(angle / (RotationSpeed * Time.fixedDeltaTime));
         for (int f = 0; f < numFrames; f++) {
-            Lookout.transform.Rotate(0f, -RotationSpeed * Time.fixedDeltaTime, 0f);
+            Watchout.transform.Rotate(0f, -RotationSpeed * Time.fixedDeltaTime, 0f);
 
             yield return new WaitForFixedUpdate();            
         }
     }
 
-    public IEnumerator __TurnLookoutRight(float angle) {
+    public IEnumerator __TurnWatchoutRight(float angle) {
         int numFrames = (int)(angle / (RotationSpeed * Time.fixedDeltaTime));
         for (int f = 0; f < numFrames; f++) {
-            Lookout.transform.Rotate(0f, RotationSpeed * Time.fixedDeltaTime, 0f);
+            Watchout.transform.Rotate(0f, RotationSpeed * Time.fixedDeltaTime, 0f);
 
             yield return new WaitForFixedUpdate();            
         }
