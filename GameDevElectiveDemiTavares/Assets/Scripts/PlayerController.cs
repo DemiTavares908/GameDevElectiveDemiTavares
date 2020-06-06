@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameObject Bumper = null;
     private BaseAI ai = null;
     public GameObject LittleThrowCube = null;
     public Transform CubeFrontSpawnPoint = null;
@@ -18,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetAI(BaseAI _ai){
         ai = ai;
-        ai.Player = this;
+        ai.Play = this;
     }
 
     public void StartFight(){
@@ -26,6 +25,9 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(ai.RunAI());
     }
 
+    void WaitForFixedUpdate(){
+
+    }
     void OnTriggerStay(Collider other){
         if(other.tag =="Player") {
             ScannedRobotEvent scannedRobotEvent = new ScannedRobotEvent();

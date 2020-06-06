@@ -8,7 +8,7 @@ public class ScannedRobotEvent {
 }
 public class BaseAI
 {
-     public PlayerController Player = null;
+     public PlayerController Play = null;
 
     // Events
     public virtual void OnScannedRobot(ScannedRobotEvent e)
@@ -17,39 +17,39 @@ public class BaseAI
     }
 
     public IEnumerator Ahead(float distance) {
-        yield return Player.__Ahead(distance);
+        yield return Play.__Ahead(distance);
     }
 
     public IEnumerator Back(float distance) {
-        yield return Player.__Back(distance);
+        yield return Play.__Back(distance);
     }
 
     public IEnumerator TurnWatchoutLeft(float angle) {
-        yield return Player.__TurnWatchoutLeft(angle);
+        yield return Play.__TurnWatchoutLeft(angle);
     }
 
     public IEnumerator TurnWatchoutRight(float angle) {
-        yield return Player.__TurnWatchoutRight(angle);
+        yield return Play.__TurnWatchoutRight(angle);
     }
 
     public IEnumerator TurnLeft(float angle) {
-        yield return Player.__TurnLeft(angle);
+        yield return Play.__TurnLeft(angle);
     }
 
     public IEnumerator TurnRight(float angle) {
-        yield return Player.__TurnRight(angle);
+        yield return Play.__TurnRight(angle);
     }
 
     public IEnumerator FireFront(float power) {
-        yield return Player.__FireFront(power);
+        yield return Play.__FireFront(power);
     }
 
     public IEnumerator FireLeft(float power) {
-        yield return Player.__FireLeft(power);
+        yield return Play.__FireLeft(power);
     }
 
     public IEnumerator FireRight(float power) {
-        yield return Player.__FireRight(power);
+        yield return Play.__FireRight(power);
     }
 
     public virtual IEnumerator RunAI() {
