@@ -8,7 +8,8 @@ public class DemiAI : BaseAI
         for (int i = 0; i < 10; i++)
         {
             yield return TurnWatchoutLeft(40);
-            yield return Ahead(150);
+            yield return Ahead(4);
+            yield return FireFront(2);
 
         }
     }
