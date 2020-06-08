@@ -14,8 +14,9 @@ public class BattleManager : MonoBehaviour
     {
         BaseAI[] aiArray = new BaseAI[]{
             new DemiAI(),
-            new DemiAI(),
-            new DemiAI(),
+            new OtherAI(),
+            new OtherAI(),
+            new OtherAI(),
         };
 
         for (int i = 0; i < 4; i++)
